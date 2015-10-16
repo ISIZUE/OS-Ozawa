@@ -1,1 +1,0 @@
-..\z_tools\nask.exe eOS.nas eOS.img

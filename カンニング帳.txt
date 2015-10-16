@@ -1,0 +1,16 @@
+MOV : コピー								MOV		AX,0
+ADD : 足し算								ADD		SI,1
+CMP : 比べる(結果はJEでみる)				CMP		AL,0
+JE  : CMPの結果を見て等しいかどうか		JE		fin
+JMP : 宣言に移動							JMP		putloop
+HLT : 処理をとめる						HLT
+
+DB : 1byte　char型
+DW : 2byte  short型
+DD : 4byte  short型
+RESB : 16byte確保する int型
+
+
+レジスタ
+CPUにくっついている値を保存しておけるもの
+変数的な存在
