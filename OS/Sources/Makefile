@@ -13,17 +13,19 @@ default :
 
 # ファイル生成規則
 
-eOS.bin : eOS.nas Makefile
-	$(NASK) eOS.nas eOS.bin eOS.lst
+ipl.bin : ipl.nas Makefile
+	$(NASK) ipl.nas ipl.bin ipl.lst
 
-eOS.img : eOS.bin Makefile
+eOS.sys : eOS.nas Makefile
+	$(NASK) eOS.nas eOS.sys eOS.lst
+
+eOS.img : ipl.bin eOS.sys Makefile
 	$(EDIMG)	imgin:../z_tools/fdimg0at.tek \
-		wbinimg src:eOS.bin len:512 from:0 to:0   imgout:eOS.img
+		wbinimg src:ipl.bin len:512 from:0 to:0 \
+		copy from:eOS.sys to:@: \
+		imgout:eOS.img
 
 # コマンド
-
-asm :
-	$(MAKE) eOS.bin
 
 img :
 	$(MAKE) eOS.img
@@ -38,7 +40,9 @@ install :
 	$(IMGTOL)w a: eOS.img
 
 clean :
-	-$(DEL) eOS.bin
+	-$(DEL) ipl.bin
+	-$(DEL) ipl.lst
+	-$(DEL) eOS.sys
 	-$(DEL) eOS.lst
 
 src_only :
